@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  postgresql:
+    image: postgres:13
+    container_name: postgresql
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    env_file:
+      - dbpostgresql-variables.env
+    networks:
+      - local-development
+
+volumes:
+  pgdata: {}
+
+networks:
+  local-development:
