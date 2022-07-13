@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@ResponseStatus(HttpStatus.NOT_FOUND)
+@ResponseStatus(HttpStatus.BAD_REQUEST)
 public class BadRequestException extends RuntimeException {
 	/**
 	 * 
@@ -18,11 +18,13 @@ public class BadRequestException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	private String fieldName;
 	private String fieldValue;
-	private String messages;
+	private String Type;
+	private String customMessage;
 
-	public BadRequestException(String fieldName, String fieldValue, String messages) {
+	public BadRequestException(String fieldName, String fieldValue,String type, String customMessage) {
 		this.fieldName = fieldName;
 		this.fieldValue = fieldValue;
-		this.messages = messages;
+		this.Type = type;
+		this.customMessage = customMessage;
 	}
 }

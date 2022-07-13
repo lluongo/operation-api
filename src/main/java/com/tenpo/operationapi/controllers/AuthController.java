@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tenpo.operationapi.exceptions.BadRequestException;
 import com.tenpo.operationapi.payload.request.LoginRequest;
 import com.tenpo.operationapi.payload.request.SignupRequest;
-import com.tenpo.operationapi.payload.response.MessageResponse;
 import com.tenpo.operationapi.services.AuthService;
 import com.tenpo.operationapi.services.UserService;
 
@@ -29,7 +29,6 @@ public class AuthController {
 
 	@GetMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
 		return ResponseEntity.ok(authService.login(loginRequest));
 	}
 
@@ -37,13 +36,13 @@ public class AuthController {
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
 		if (userService.existsByUsername(signUpRequest.getUsername())) {
-			return ResponseEntity.badRequest()
-					.body(new MessageResponse("Is already taken", "The Username is already taken!"));
+			throw new BadRequestException(null, null, "Is already taken",
+					"The Username is already taken!, please select another");
 		}
 
 		if (userService.existsByEmail(signUpRequest.getEmail())) {
-			return ResponseEntity.badRequest()
-					.body(new MessageResponse("Already in use", "The Email is already in use!"));
+			throw new BadRequestException(null, null, "Already in use",
+					"The Email is already in use!, please select another");
 		}
 
 		authService.signUp(signUpRequest);
