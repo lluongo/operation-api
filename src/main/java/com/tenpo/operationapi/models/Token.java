@@ -11,11 +11,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
 @Entity
 @Table(name = "Token", uniqueConstraints = { @UniqueConstraint(columnNames = "tokenValue") })
+@NoArgsConstructor
+@Getter
+@Setter
 public class Token {
 
 	@Id
@@ -29,4 +33,8 @@ public class Token {
 	@JoinColumn(referencedColumnName = "id")
 	private User user;
 
+	public Token(String tokenValue, User user) {
+		this.tokenValue = tokenValue;
+		this.user = user;
+	}
 }

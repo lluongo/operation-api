@@ -36,7 +36,6 @@ public class RestExceptionHandle extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(BadRequestException.class)
 	protected ResponseEntity<Object> handleBadRequestException(HttpServletRequest request,BadRequestException ex) {
 
-
 		ApiError apiError = new ApiError();
 		apiError.setType(ex.getType());
 		apiError.setTitle(ex.getCustomMessage());

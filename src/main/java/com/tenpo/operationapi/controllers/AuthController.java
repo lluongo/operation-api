@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,26 +26,26 @@ public class AuthController {
 	@Autowired
 	UserService userService;
 
-	@GetMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		return ResponseEntity.ok(authService.login(loginRequest));
-	}
-
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
 
-		if (userService.existsByUsername(signUpRequest.getUsername())) {
+		userService.getByUserName(signUpRequest.getUsername()).ifPresent(s -> {
 			throw new BadRequestException(null, null, "Is already taken",
 					"The Username is already taken!, please select another");
-		}
+		});
 
-		if (userService.existsByEmail(signUpRequest.getEmail())) {
-			throw new BadRequestException(null, null, "Already in use",
+		userService.getByUserName(signUpRequest.getUsername()).ifPresent(s -> {
+			new BadRequestException(null, null, "Already in use",
 					"The Email is already in use!, please select another");
-		}
+		});
 
 		authService.signUp(signUpRequest);
 
 		return ResponseEntity.ok("User registered successfully!");
+	}
+
+	@PostMapping("/signin")
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		return ResponseEntity.ok(authService.login(loginRequest));
 	}
 }

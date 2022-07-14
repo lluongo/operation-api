@@ -9,9 +9,13 @@ import com.tenpo.operationapi.models.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-  Optional<User> findByUsername(String username);
+	Optional<User> findByUsername(String username);
 
-  Boolean existsByUsername(String username);
+	Boolean existsByUsername(String username);
 
-  Boolean existsByEmail(String email);
+	Boolean existsByEmail(String email);
+
+	Optional<User> getByUsername(String username);
+
+	Optional<User> getByEmail(String email);
 }
