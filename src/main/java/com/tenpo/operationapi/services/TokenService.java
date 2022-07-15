@@ -1,5 +1,6 @@
 package com.tenpo.operationapi.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,18 +25,18 @@ public class TokenService {
 	@Autowired
 	JwtUtils jwtUtils;
 
-	public String getValidToken(UserDetailsImpl userDetailImpl) {
+	public Token getValidToken(UserDetailsImpl userDetailImpl) {
 
 		List<Token> jwtsList = tokenRepository.getByUserId(userDetailImpl.getId());
 
 		if (jwtsList.isEmpty()) {
 			Token token = new Token(jwtUtils.generateJwtToken(userDetailImpl),
-					userService.getById(userDetailImpl.getId()));
+					userService.getById(userDetailImpl.getId()), new Date());
 			tokenRepository.save(token);
-			return token.getTokenValue();
+			return token;
 		}
 
-		return filterValidJwtsInList(jwtsList).get(0).getTokenValue();
+		return filterValidJwtsInList(jwtsList).get(0);
 	}
 
 	private List<Token> filterValidJwtsInList(List<Token> jwts) {

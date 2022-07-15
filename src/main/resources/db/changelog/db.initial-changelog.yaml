@@ -1,0 +1,199 @@
+databaseChangeLog:
+- changeSet:
+    id: 1657838013714-1
+    author: luong (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: rol_pkey
+            name: id
+            type: INTEGER
+        - column:
+            name: creation_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: name
+            type: VARCHAR(20)
+        tableName: rol
+- changeSet:
+    id: 1657838013714-2
+    author: luong (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: token_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: creation_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: token_value
+            type: VARCHAR(255)
+        - column:
+            name: user_id
+            type: BIGINT
+        tableName: token
+- changeSet:
+    id: 1657838013714-3
+    author: luong (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: users_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: creation_date
+            type: TIMESTAMP WITHOUT TIME ZONE
+        - column:
+            name: email
+            type: VARCHAR(50)
+        - column:
+            name: password
+            type: VARCHAR(120)
+        - column:
+            name: username
+            type: VARCHAR(20)
+        tableName: users
+- changeSet:
+    id: 1657838013714-4
+    author: luong (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: user_roles_pkey
+            name: user_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: user_roles_pkey
+            name: role_id
+            type: INTEGER
+        tableName: user_roles
+- changeSet:
+    id: 1657838013714-5
+    author: luong (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: role_id
+        baseTableName: user_roles
+        constraintName: fk9lasceq82f1y6pltnys5ovctw
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: rol
+        validate: true
+- changeSet:
+    id: 1657838013714-6
+    author: luong (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: token
+        constraintName: fkj8rfw4x0wjjyibfqq566j4qng
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1657838013714-7
+    author: luong (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: token_value
+        constraintName: uka3qcfvb4sgs02lqdm2ki8v8bh
+        tableName: token
+- changeSet:
+    id: 1657838013714-8
+    author: luong (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: user_id
+        baseTableName: user_roles
+        constraintName: fkhfh9dx7w3ubf1co1vdev94g3f
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: users
+        validate: true
+- changeSet:
+    id: 1657838013714-9
+    author: luong (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: email
+        constraintName: uk6dotkott2kjsp8vw4d0m25fb7
+        tableName: users
+- changeSet:
+    id: 1657838013714-10
+    author: luong (generated)
+    changes:
+    - addUniqueConstraint:
+        columnNames: username
+        constraintName: ukr43af9ap4edm43mmtq01oddj6
+        tableName: users
+- changeSet:
+    id: 1657838013714-11
+    author: luong (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: hibernate_sequence
+        startValue: 1
+- changeSet:
+    id: 1657838013714-12
+    author: luong (generated)
+    changes:
+    - createSequence:
+        cacheSize: 1
+        cycle: false
+        dataType: bigint
+        incrementBy: 1
+        maxValue: 9223372036854775807
+        minValue: 1
+        sequenceName: user_device_seq
+        startValue: 1
+- changeSet:
+     id: 1657838013714-14 
+     author: Lucas
+     changes:
+       - sql:
+           sql: insert into rol (name,creation_date) values ('ROLE_USER','2022/07/14 22:00:00')
+       - sql:
+           sql: insert into rol (name,creation_date) values ('ROLE_MODERATOR','2022/07/14 22:00:00')
+       - sql:
+           sql: insert into rol (name,creation_date) values ('ROLE_ADMIN','2022/07/14 22:00:00')        

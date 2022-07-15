@@ -39,9 +39,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		try {
 			String jwt = parseJwt(request);
-
-			System.out.println(validateTokenIsNotForALoggedUser(jwt));
-
 			if (jwt != null && validateTokenIsNotForALoggedUser(jwt) && jwtUtils.validateJwtToken(jwt)) {
 				String username = jwtUtils.getUserNameFromJwtToken(jwt);
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);

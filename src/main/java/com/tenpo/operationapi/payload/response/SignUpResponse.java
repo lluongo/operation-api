@@ -1,7 +1,9 @@
 package com.tenpo.operationapi.payload.response;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
+
+import com.tenpo.operationapi.models.Role;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,23 +12,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class JwtResponse {
-	private String token;
-	private String type = "Bearer";
+public class SignUpResponse {
+
 	private Long id;
 	private String username;
 	private String email;
-	private List<String> roles;
+	private Set<Role> roles;
 	private Date creationDate;
 
-	public JwtResponse(String accessToken, Long id, String username, String email, List<String> roles,
-			Date creationDate) {
-		this.token = accessToken;
+	public SignUpResponse(Long id, String username, String email, Set<Role> roles, Date creationDate) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
-		this.creationDate = creationDate;
+		this.creationDate= creationDate;
 	}
 
 }

@@ -1,0 +1,33 @@
+server:
+    port: ${APP_PORT}
+spring:
+    main:
+        allow-bean-definition-overriding: true
+    application:
+        name: operation-api
+    datasource:
+        password: ${DS_PASSWORD}
+        testWhileIdle: true
+        url: ${DS_URL}
+        username: ${DS_USERNAME}
+        validationQuery: SELECT 1
+    devtools:
+        restart:
+            enabled: true
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: ${DB_DDL_AUTO}
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+            use-new-id-generator-mappings: true
+            jdbc:
+               lob:
+                  non_contextual_creation: true
+        properties:
+            hibernate:
+                show_sql: ${SHOW_SQL}
+    liquibase:
+        change-log: ${LIQUIBASE_CHANGELOG_PATH}
+app:
+   jwtSecret: ${JWT_SECRET_KEY}
+   jwtExpirationMs: ${JWT_EXPIRATION_VALUE}          

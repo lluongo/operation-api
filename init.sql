@@ -1,3 +1,9 @@
-INSERT INTO rol(name) VALUES('ROLE_USER');
-INSERT INTO rol(name) VALUES('ROLE_MODERATOR');
-INSERT INTO rol(name) VALUES('ROLE_ADMIN');
+CREATE USER operationapi WITH PASSWORD 'operationapi123' CREATEDB;
+CREATE DATABASE operation
+    WITH
+    OWNER = operationapi
+    ENCODING = 'UTF8'
+    LC_COLLATE = 'en_US.utf8'
+    LC_CTYPE = 'en_US.utf8'
+    TABLESPACE = pg_default
+    CONNECTION LIMIT = -1;

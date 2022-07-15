@@ -1,5 +1,6 @@
 package com.tenpo.operationapi.services;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,10 +49,10 @@ public class AuthService {
 	@Autowired
 	ApplicationEventPublisher applicationEventPublisher;
 
-	public void signUp(SignupRequest signUpRequest) {
+	public User signUp(SignupRequest signUpRequest) {
 
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-				encoder.encode(signUpRequest.getPassword()));
+				encoder.encode(signUpRequest.getPassword()), new Date());
 
 		Set<String> strRoles = signUpRequest.getRole();
 		Set<Role> roles = new HashSet<>();
@@ -85,6 +86,8 @@ public class AuthService {
 
 		user.setRoles(roles);
 		userService.save(user);
+
+		return user;
 	}
 
 	public JwtResponse login(LoginRequest loginRequest) {
@@ -95,12 +98,13 @@ public class AuthService {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-		String jwt = tokenService.getValidToken(userDetails);
+		Token jwt = tokenService.getValidToken(userDetails);
 
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		return new JwtResponse(jwt, userDetails.getId(), userDetails.getUsername(), userDetails.getEmail(), roles);
+		return new JwtResponse(jwt.getTokenValue(), userDetails.getId(), userDetails.getUsername(),
+				userDetails.getEmail(), roles, jwt.getCreationDate());
 
 	}
 
