@@ -25,6 +25,8 @@ import com.tenpo.operationapi.payload.request.LogOutRequest;
 import com.tenpo.operationapi.payload.request.LoginRequest;
 import com.tenpo.operationapi.payload.request.SignupRequest;
 import com.tenpo.operationapi.payload.response.JwtResponse;
+import com.tenpo.operationapi.payload.response.LogOutResponse;
+import com.tenpo.operationapi.payload.response.SignUpResponse;
 import com.tenpo.operationapi.repository.RoleRepository;
 import com.tenpo.operationapi.security.services.UserDetailsImpl;
 
@@ -49,7 +51,7 @@ public class AuthService {
 	@Autowired
 	ApplicationEventPublisher applicationEventPublisher;
 
-	public User signUp(SignupRequest signUpRequest) {
+	public SignUpResponse signUp(SignupRequest signUpRequest) {
 
 		User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
 				encoder.encode(signUpRequest.getPassword()), new Date());
@@ -87,7 +89,7 @@ public class AuthService {
 		user.setRoles(roles);
 		userService.save(user);
 
-		return user;
+		return new SignUpResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRoles(), new Date());
 	}
 
 	public JwtResponse login(LoginRequest loginRequest) {
@@ -103,12 +105,11 @@ public class AuthService {
 		List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
 				.collect(Collectors.toList());
 
-		return new JwtResponse(jwt.getTokenValue(), userDetails.getId(), userDetails.getUsername(),
-				userDetails.getEmail(), roles, jwt.getCreationDate());
+		return new JwtResponse(jwt.getTokenValue(), roles, jwt.getCreationDate());
 
 	}
 
-	public void logout(UserDetailsImpl currentUser, LogOutRequest logOutRequest) {
+	public LogOutResponse logout(UserDetailsImpl currentUser, LogOutRequest logOutRequest) {
 
 		if (!tokenService.getUserNameFromJwtToken(logOutRequest.getToken()).equals(currentUser.getUsername())) {
 			throw new BadRequestException(null, null, "Prohibited Action", "Can't log out another user");
@@ -124,6 +125,8 @@ public class AuthService {
 
 		tokenService.getTokensByTokenValue(logOutRequest.getToken()).ifPresentOrElse(null,
 				() -> addTokenInCache(logOutRequest.getToken(), currentUser.getEmail(), logOutRequest));
+
+		return new LogOutResponse("User has successfully logged out from the system!");
 
 	}
 

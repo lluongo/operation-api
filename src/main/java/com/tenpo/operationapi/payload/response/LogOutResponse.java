@@ -1,25 +1,23 @@
-package com.tenpo.operationapi.payload.request;
-
-import javax.validation.constraints.NotBlank;
+package com.tenpo.operationapi.payload.response;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tenpo.operationapi.payload.ISerializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class LoginRequest implements ISerializable {
-	@NotBlank
-	private String username;
+public class LogOutResponse implements ISerializable {
 
-	@NotBlank
-	private String password;
+	private String message;
 
 	@Override
 	public String serializeMe() throws JsonProcessingException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		return objectMapper.writeValueAsString(this);
 	}
-
 }

@@ -1,0 +1,215 @@
+{
+	"info": {
+		"_postman_id": "32c8452c-6c18-4d17-af07-99d2d0283825",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9338710"
+	},
+	"item": [
+		{
+			"name": "signin",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWMxMjEyIiwiaWF0IjoxNjU3ODk4NjI2LCJleHAiOjE2NTc5ODUwMjZ9.TwR2udF3DE77FMX1PJLXVm36Xd5IIJChfAVmQnzZKMmtdAoSzzAqudyBltxXc4Az-16-VFpzYwOUGFzb16KRog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"luc1212\",\r\n    \"password\":\"1234567\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/v1/auth/signin",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"luc1212\",\r\n    \"email\":\"luc1212@gmail.com\",\r\n    \"password\":\"1234567\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/v1/auth/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "operation",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWMxMjEyIiwiaWF0IjoxNjU3ODk4NjI2LCJleHAiOjE2NTc5ODUwMjZ9.TwR2udF3DE77FMX1PJLXVm36Xd5IIJChfAVmQnzZKMmtdAoSzzAqudyBltxXc4Az-16-VFpzYwOUGFzb16KRog",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"operator1\":\"1947\",\r\n    \"operator2\":\"232.7\"\r\n    \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/v1/operation",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"operation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWMxMjEyIiwiaWF0IjoxNjU3ODkzNTA3LCJleHAiOjE2NTc5Nzk5MDd9.5ajLDWEQWWZcNkj9-ZFexO9Ui_on8phe-9yp_5nO396ym3wUk5Mc3xadO5Rf5ZLbQ05dbqwflxzSN5RRX_3CGw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWMxMjEyIiwiaWF0IjoxNjU3ODkzNTA3LCJleHAiOjE2NTc5Nzk5MDd9.5ajLDWEQWWZcNkj9-ZFexO9Ui_on8phe-9yp_5nO396ym3wUk5Mc3xadO5Rf5ZLbQ05dbqwflxzSN5RRX_3CGw\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/v1/user/signout",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"user",
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "historyLog",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJsdWMxMjEyIiwiaWF0IjoxNjU3ODkzNTA3LCJleHAiOjE2NTc5Nzk5MDd9.5ajLDWEQWWZcNkj9-ZFexO9Ui_on8phe-9yp_5nO396ym3wUk5Mc3xadO5Rf5ZLbQ05dbqwflxzSN5RRX_3CGw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8080/v1/report/historyLog?pageNumber=0&pageSize=10",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"v1",
+						"report",
+						"historyLog"
+					],
+					"query": [
+						{
+							"key": "pageNumber",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
