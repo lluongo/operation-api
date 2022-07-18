@@ -4,7 +4,6 @@ services:
      app:
        container_name: operation-api
        image: lluongo/operation-api:v1.0.0
-       build: ./
        ports:
          - 8080:8080
        env_file:
